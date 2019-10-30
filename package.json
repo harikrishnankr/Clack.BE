@@ -4,8 +4,8 @@
   "description": "Clack BE application",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "server": "mongod --dbpath /data/clack --port 27019"
+    "dev-server": "nodemon node index.js",
+    "db": "mongod --dbpath /data/clack --port 27019"
   },
   "author": "Hari Krishnan KR <harisemail94@gmail.com>",
   "license": "MIT",
@@ -18,5 +18,8 @@
     "node-uuid": "^1.4.8",
     "swagger-ui-express": "^4.1.1",
     "sync-request": "^6.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
   }
 }
