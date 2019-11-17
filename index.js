@@ -2,10 +2,12 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const config = require('./src/db/db.config');
+const errorHandler = require('./src/core/error-handler');
+const jwt = require('./src/core/jwt');
 
-const UsersRouter = require('./src/users/users.routes');
+const apiEndpoints = require('./src/base.routes');
 
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
@@ -18,9 +20,17 @@ app.use(function (req, res, next) {
     }
 });
 
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-UsersRouter.routesConfig(app);
+// use JWT auth to secure the api
+app.use(jwt());
 
-app.listen(config.port, function () {
+// api routes
+apiEndpoints.setRoutes(app);
+
+// global error handler
+app.use(errorHandler);
+
+app.listen(config.port, () => {
     console.log('app listening at port %s', config.port);
 });
