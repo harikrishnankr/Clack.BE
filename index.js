@@ -6,7 +6,7 @@ const config = require('./src/db/db.config');
 const errorHandler = require('./src/core/error-handler');
 const jwt = require('./src/core/jwt');
 const cors = require('./src/core/cors');
-const apiEndpoints = require('./src/base.routes');
+const apiEndpoints = require('./src/routes');
 
 app.use(cors);
 app.use(bodyParser.urlencoded({ extended: false }));
